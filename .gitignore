@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Dataset and outputs 
+noisy_dataset/
+curated_output/
+rejected/
+
+# Model weights (download at runtime)
+*.pt
+*.onnx
+*.pth
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

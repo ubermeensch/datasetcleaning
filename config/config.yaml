@@ -1,0 +1,23 @@
+pipeline:
+  quality_filter:
+    min_blur_variance: 20        # DISABLE blur filter entirely — person crops are naturally blurry
+    min_width: 20
+    min_height: 40
+
+  body_completeness:
+    model: "yolov8n-pose.pt"
+    min_keypoint_confidence: 0.04
+    required_upper_kpts: [5, 6]
+    required_lower_kpts: [11, 12]
+    boundary_margin: 0.01
+    min_body_span_ratio: 0.35
+    min_person_confidence: 0.10
+
+  advertisement_detection:
+    clip_model: "ViT-B/32"
+    clip_ad_threshold: 0.32        # high — only catch clear ads
+    edge_density_threshold: 0.30
+
+  age_estimation:
+    min_acceptable_age: 18
+    age_uncertainty_buffer: 5
