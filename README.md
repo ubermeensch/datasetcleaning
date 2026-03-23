@@ -29,29 +29,35 @@ Images pass through six sequential filtering stages. Each stage only processes i
 
 ```bash
 pip install -r requirements.txt
+```
+
+## Model Weights
+
+All model weights are downloaded automatically on first run:
+
+YOLOv8 pose weights (yolov8n-pose.pt) — via ultralytics
+
+InsightFace buffalo_l — via insightface
+
+CLIP ViT-B/32 — via openai/CLIP
+
+EasyOCR en + ch_sim — via easyocr
 
 
-First run — model weights are downloaded automatically
-YOLOv8 pose weights (yolov8n-pose.pt) — downloaded by ultralytics on first run
-
-InsightFace buffalo_l model — downloaded on first run
-
-CLIP ViT-B/32 — downloaded on first run
-
-EasyOCR en + ch_sim models — downloaded on first run
-
-Usage
-
+## Usage
 Run on a local folder
 
+```bash
 python run_pipeline.py --input_dir ./noisy_dataset --output_dir ./curated_output
+``` 
 
 Run with Google Drive download
-
+```bash
 python run_pipeline.py --gdrive_url "https://drive.google.com/drive/folders/YOUR_ID" --output_dir ./curated_output
+```
 
 All options
-
+```bash
 python run_pipeline.py \
   --input_dir ./noisy_dataset \
   --output_dir ./curated_output \
@@ -59,6 +65,7 @@ python run_pipeline.py \
   --batch_size 32 \
   --rejected_dir ./rejected \
   --visualize
+```
 
 | Argument       | Default            | Description                                        |
 | -------------- | ------------------ | -------------------------------------------------- |
@@ -70,15 +77,16 @@ python run_pipeline.py \
 | --rejected_dir | None               | Optional folder to copy rejected images into       |
 | --visualize    | False              | Save annotated debug images                        |
 
-Configuration
+## Configuration
 
 Edit config/config.yaml to adjust thresholds:
 
+```
 pipeline:
   quality_filter:
     min_width: 20
     min_height: 40
-    min_blur_variance: 0.0       # 0 = disabled
+    min_blur_variance: 0.0       # 0 = blur check disabled
 
   body_completeness:
     model: yolov8n-pose.pt
@@ -95,18 +103,20 @@ pipeline:
   age_estimation:
     min_acceptable_age: 13
     age_uncertainty_buffer: 3
-
-Output
-
+```
+## Output
+```
 curated_output/
 ├── crop_001.png              accepted images
 ├── crop_002.png
 ├── ...
 ├── curation_results.json     per-image result with stage details
 └── curation_summary.json     aggregate counts
+```
 
-Summary format (curation_summary.json)
+### Summary format (curation_summary.json)
 
+```
 {
   "total": 1147,
   "accepted": 186,
@@ -117,10 +127,10 @@ Summary format (curation_summary.json)
   "rejected_age": 2,
   "invalid": 0
 }
+```
 
-
-Project Structure
-
+## Project Structure
+```
 datasetcleaning/
 ├── run_pipeline.py              ← main entry point
 ├── requirements.txt
@@ -136,3 +146,4 @@ datasetcleaning/
 └── utils/
     ├── image_utils.py
     └── visualization.py
+```
