@@ -141,10 +141,6 @@ class AdvertisementFilter:
 
         is_fake = clip_flag or edge_flag or text_flag or bg_flag
 
-        if is_fake:
-            print(f"[AD-REJECT] fake_prob={fake_prob:.3f} edge={edge_density:.3f} "
-                  f"text={text_flag} bg={bg_score:.3f} path={path}")
-
         return {
             "passed":           not is_fake,
             "reason":           "advertisement_or_non_human" if is_fake else None,
